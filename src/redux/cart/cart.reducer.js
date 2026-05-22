@@ -1,22 +1,31 @@
 import CartActionTypes from './cart.types';
 
 // Initial state for the cart reducer.
-// `hidden` controls whether the cart dropdown is visible.
+// hidden: whether the dropdown cart is currently hidden.
+// cartItems: the list of items currently in the cart.
 const INITIAL_STATE = {
-    hidden: true
+    hidden: true,
+    cartItems: []
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        // When the cart hidden toggle action is dispatched,
-        // return a new state object with the `hidden` flag flipped.
         case CartActionTypes.toggleCartHidden:
+            // Toggle the hidden state to show or hide the cart dropdown.
             return {
                 ...state,
                 hidden: !state.hidden
             };
+
+        case CartActionTypes.addItem:
+            // Add a new cart item from the action payload.
+            return {
+                ...state,
+                cartItems: [...state.cartItems, action.payload]
+            };
+
         default:
-            // For any other action, return the current state unchanged.
+            // If the action is not handled, return the current state unchanged.
             return state;
     }
 };
