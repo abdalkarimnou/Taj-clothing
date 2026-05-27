@@ -4,31 +4,31 @@ import { addItem } from '../../redux/cart/cart.actions';
 import CustomButton from '../custom-button/custom-button.component';
 import './collection-item.styles.scss';
 
-// CollectionItem receives two props:
-// - item: the product object to display
-// - addItem: a Redux dispatcher function injected via connect
+// CollectionItem displays a single product card inside the shop page.
+// It renders the product image, name, and price, and provides a button
+// to add the product to the cart through a Redux action.
 const CollectionItem = ({ item, addItem }) => {
-    // Destructure the item object so we can use its fields directly.
+    // Destructure the product fields from the item prop passed in by the parent.
     const { name, price, imageUrl, id } = item;
     return (
-    <div className="collection-item">
-        <div className="image" style={{ backgroundImage: `url(${imageUrl})`}} />
-        <div className="collection-footer">
-            <span className="name">{name}</span>
-            <span className="price">{price}</span>
+        <div className="collection-item">
+            {/* Render the product image using a CSS background */}
+            <div className="image" style={{ backgroundImage: `url(${imageUrl})` }} />
+            <div className="collection-footer">
+                {/* Product name displayed below the image */}
+                <span className="name">{name}</span>
+                {/* Product price displayed alongside the name */}
+                <span className="price">{price}</span>
+            </div>
+            {/* Dispatch addItem when the button is clicked */}
+            <CustomButton inverted onClick={() => addItem(item)}>
+                ADD TO CART
+            </CustomButton>
         </div>
-        <CustomButton inverted onClick={() => addItem({ item })}>
-            ADD TO CART
-        </CustomButton>
-    </div>
-)};
+    );
+};
 
-// mapDispatchToProps lets this component dispatch Redux actions.
-// We provide one prop, addItem, which wraps the addItem action creator.
-// Calling addItem(item) will dispatch the action to update the cart state.
 const mapDispatchToProps = dispatch => ({
     addItem: item => dispatch(addItem(item))
 });
-
-// Connect the component to Redux with no state props (null) and the dispatch props.
 export default connect(null, mapDispatchToProps)(CollectionItem);
