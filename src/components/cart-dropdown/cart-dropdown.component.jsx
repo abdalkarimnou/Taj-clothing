@@ -3,9 +3,10 @@ import './cart-dropdown.styles.scss';
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { connect } from "react-redux";
+import { selectCartItems } from "../../redux/cart/cart.selectors";
 
-// CartDropdown is the floating cart preview shown when the cart icon is clicked.
-// It receives the current cart items from Redux state and renders a list of CartItem components.
+// CartDropdown renders the list of items currently in the cart.
+// It receives cartItems from Redux state and maps each one to a CartItem component.
 const CartDropdown = ({ cartItems }) => (
     <div className='cart-dropdown'>
         <div className='cart-items'>
@@ -13,15 +14,14 @@ const CartDropdown = ({ cartItems }) => (
                 <CartItem key={cartItem.id} item={cartItem} />
             ))}
         </div>
-        {/* Checkout button shown at the bottom of the dropdown */}
+        {/* Checkout button shown below the list of cart items */}
         <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>
 );
 
-// Selects cartItems from the Redux store's cart slice.
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-    cartItems
+// mapStateToProps uses a memoized selector to derive cartItems from state.
+const mapStateToProps = state => ({
+    cartItems: selectCartItems(state)
 });
 
-// Connects CartDropdown to Redux so it can access the current cart items.
 export default connect(mapStateToProps)(CartDropdown);
