@@ -4,9 +4,15 @@ import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
 import { connect } from "react-redux";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
 
-// CartDropdown renders the list of items currently in the cart.
-// It receives cartItems from Redux state and maps each one to a CartItem component.
+// Map the memoized cart items selector into CartDropdown props.
+// This ensures CartDropdown receives the latest list of items from the Redux cart state,
+// and only recomputes when cartItems actually change.
+const mapStateToProps = createStructuredSelector({
+    cartItems: selectCartItems
+});
+
 const CartDropdown = ({ cartItems }) => (
     <div className='cart-dropdown'>
         <div className='cart-items'>
@@ -14,14 +20,8 @@ const CartDropdown = ({ cartItems }) => (
                 <CartItem key={cartItem.id} item={cartItem} />
             ))}
         </div>
-        {/* Checkout button shown below the list of cart items */}
         <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>
 );
-
-// mapStateToProps uses a memoized selector to derive cartItems from state.
-const mapStateToProps = state => ({
-    cartItems: selectCartItems(state)
-});
 
 export default connect(mapStateToProps)(CartDropdown);

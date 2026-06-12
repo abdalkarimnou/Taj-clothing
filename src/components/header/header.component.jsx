@@ -6,9 +6,14 @@ import { auth } from "../../firebase/firebase.utils";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { connect } from "react-redux";
+// createStructuredSelector allows us to pass multiple memoized selectors
+// while keeping mapStateToProps concise and easy to read.
+import { createStructuredSelector } from "reselect";
+// Selector that returns the current authenticated user from Redux state.
+import { selectCurrentUser } from "../../redux/user/user.selector";
+// Selector that returns whether the cart dropdown is hidden from Redux state.
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
 
-// Header component receives currentUser and hidden from Redux.
-// `currentUser` controls authentication links; `hidden` controls cart dropdown visibility.
 const Header = ({ currentUser, hidden }) => (
     <div className="header">
         <Link to="/" className="logo-container">
@@ -24,18 +29,19 @@ const Header = ({ currentUser, hidden }) => (
             )}
                 <CartIcon />
         </div>
-
-        {/* Render the cart dropdown only when `hidden` is false. */}
-        {hidden ? null : <CartDropdown />}
+        {hidden ? null : <CartDropdown /> }
     </div>
 );
 
-// Retrieve values from the Redux store and pass them as props to Header.
-// `currentUser` is used to decide whether to show SIGN IN or SIGN OUT.
-// `hidden` is used to control whether the cart dropdown is visible.
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-    currentUser,
-    hidden
+// Map Redux state into Header props using memoized selectors.
+// `currentUser` controls whether the sign-in link or sign-out option is shown,
+// while `hidden` determines whether the cart dropdown should be displayed.
+const mapStateToProps = (state) => createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 });
 
+// Connect Header to Redux so it receives selected state as props.
+// This higher-order component injects currentUser and hidden into Header,
+// enabling conditional rendering of authentication links and the cart dropdown.
 export default connect(mapStateToProps)(Header);

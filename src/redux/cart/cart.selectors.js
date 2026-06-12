@@ -1,20 +1,20 @@
-import { createSelector } from 'reselect';
-
-// Select the cart slice from the Redux root state.
+import {createSelector} from 'reselect';
 const selectCart = state => state.cart;
-
-// Memoized selector that returns the list of items in the cart.
 export const selectCartItems = createSelector(
     [selectCart],
     cart => cart.cartItems
 );
 
-// Memoized selector that computes the total number of items in the cart.
-// It reduces the cartItems array by summing each cart item's quantity.
-export const selectCartItemsCount = createSelector(
+// Selector for the cart dropdown visibility flag.
+// Components can use this derived value to show or hide the cart UI
+// without reading the entire cart state directly.
+export const selectCartHidden = createSelector(
+    [selectCart],
+    cart => cart.hidden
+); 
+
+export const  selectCartItemsCount = createSelector(
     [selectCartItems],
-    cartItems => cartItems.reduce(
-        (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
-        0
-    )
-);
+    cartItems => cartItems.reduce((accumulatedQuantity, cartItem) =>
+         accumulatedQuantity + cartItem.quantity, 0)
+); 
