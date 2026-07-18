@@ -16,9 +16,6 @@ const mapDispatchToProps = dispatch => ({
     toggleCartHidden: () => dispatch(toggleCartHidden())
 });
 
-// Map the total number of cart items into props using a memoized selector.
-// This keeps the CartIcon rendering efficient by recomputing only when cartItems change,
-// and provides the badge count displayed next to the shopping icon.
 const mapStateToProps = createStructuredSelector({
     itemCount: selectCartItemsCount
 });

@@ -10,6 +10,9 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
 import { createStructuredSelector } from 'reselect';
+import CheckoutPage from './pages/checkout/checkout.component';
+
+
 class App extends React.Component {
  
  unsubscribeFromAuth = null;
@@ -40,6 +43,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
+        <Route path='/checkout' component={CheckoutPage} /> 
         <Route exact path='/sign-in' render={() =>
           this.props.currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage /> } />
         </Switch>
@@ -52,9 +56,6 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-// Bind the setCurrentUser action creator to dispatch.
-// This allows App to update the Redux user state when auth state changes,
-// without exposing dispatch directly to the component.
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
