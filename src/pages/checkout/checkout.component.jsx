@@ -25,24 +25,9 @@ const CheckoutPage = ({ cartItems, total }) => (
             </div>
         </div>
 
-        {/*
-         * Render a `CheckoutItem` for every entry in `cartItems`:
-         * - `cartItems.map(...)` iterates the array and returns a React node per item.
-         * - `key={cartItem.id}` provides a stable identity so React can efficiently
-         *   update, reorder, and remove items in the list.
-         * - `cartItem={cartItem}` passes the whole item object down so the child
-         *   component can access `name`, `imageUrl`, `price`, and `quantity`.
-         *
-         * Note: when adding interactivity (remove/increment/decrement) pass
-         * handler callbacks as additional props to `CheckoutItem` so the child
-         * can call back into Redux actions or parent handlers.
-         */}
-        {cartItems.map(cartItem => (
-            <CheckoutItem
-                key={cartItem.id}
-                cartItem={cartItem}
-            />
-        ))}
+        {cartItems.map(cartItem => 
+        <CheckoutItem key={cartItem.id} cartItem={cartItem} /> 
+             )}
 
         <div className='total'>  
             <span>TOTAL: ${total}</span>
