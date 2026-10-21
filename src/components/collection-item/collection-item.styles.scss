@@ -1,50 +1,86 @@
 .collection-item {
-  width: 22vw;
   display: flex;
   flex-direction: column;
-  height: 350px;
-  align-items: center;
+  align-items: stretch;
   position: relative;
+  width: 100%;
+  min-width: 0;
+  height: auto;
 
   .image {
     width: 100%;
-    height: 95%;
+    height: auto;
+    aspect-ratio: 3 / 4;
     background-size: cover;
     background-position: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   .custom-button {
-    width: 80%;
-    opacity: 0.7;
+    width: calc(100% - 16px);
+    min-width: 0;
+    max-width: 100%;
+    height: 42px;
+    padding: 0 8px;
+    line-height: 42px;
+    font-size: 12px;
+    opacity: 0.9;
     position: absolute;
-    top: 255px;
+    left: 8px;
+    bottom: 58px;
     display: none;
-  } 
+  }
+
   &:hover {
     .image {
-      opacity: 0.8;
-    }
-    .custom-button {
       opacity: 0.85;
+    }
+
+    .custom-button {
       display: flex;
     }
-  } 
+  }
 
   .collection-footer {
-    width: 100%;
-    height: 5%;
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    font-size: 18px;
+    gap: 8px;
+    width: 100%;
+    height: auto;
+    font-size: clamp(13px, 1.2vw, 18px);
 
     .name {
-      width: 90%;
-      margin-bottom: 15px;
+      flex: 1;
+      min-width: 0;
+      margin-bottom: 0;
+      overflow-wrap: anywhere;
     }
 
     .price {
-      width: 10%;
+      width: auto;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .collection-item {
+    .custom-button {
+      display: flex;
+      position: static;
+      width: 100%;
+      height: 40px;
+      margin-top: 8px;
+      padding: 0 6px;
+      line-height: 40px;
+      font-size: 11px;
+      opacity: 1;
+    }
+
+    &:hover .image {
+      opacity: 1;
     }
   }
 }
