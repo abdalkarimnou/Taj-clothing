@@ -51,23 +51,45 @@
 
 @media (max-width: 600px) {
   .header {
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr);
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 0;
+    min-height: 90px;
+    margin-bottom: 22px;
+
+    .logo-container {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+    }
 
     .options {
       display: grid;
-      order: 2;
-      flex: 1 0 100%;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-column: 2;
+      grid-row: 1;
+      grid-template-columns: repeat(2, max-content);
+      grid-auto-rows: min-content;
       align-items: center;
-      justify-items: stretch;
+      justify-content: end;
+      align-content: center;
+      gap: 4px 8px;
       width: 100%;
       min-height: 0;
-      gap: 0 8px;
 
       .option {
-        padding: 10px 8px;
+        min-height: 36px;
+        padding: 8px 6px;
         font-size: 14px;
+        line-height: 1.2;
         text-align: center;
+        white-space: nowrap;
+      }
+
+      .cart-icon {
+        justify-self: center;
+        align-self: center;
       }
     }
   }
