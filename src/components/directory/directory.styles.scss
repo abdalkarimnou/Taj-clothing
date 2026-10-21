@@ -29,3 +29,10 @@
     height: clamp(260px, 30vw, 380px);
   }
 }
+
+@media (max-width: 599px) {
+  .directory-menu > .menu-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    height: clamp(170px, 45vw, 220px);
+  }
+}
