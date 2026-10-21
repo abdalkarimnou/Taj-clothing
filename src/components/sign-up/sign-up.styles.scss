@@ -1,9 +1,23 @@
 .sign-up {
   display: flex;
   flex-direction: column;
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
+  min-width: 0;
+  margin: 0 auto;
 
   .title {
     margin: 10px 0;
+  }
+
+  .sign-up-form {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-up .title {
+    font-size: 22px;
   }
 }
