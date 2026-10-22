@@ -1,41 +1,135 @@
 .checkout-page {
-  width: 55%;
+  width: 100%;
+  max-width: 960px;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 50px auto 0;
+  align-items: stretch;
+  margin: 32px auto 0;
+
+  .checkout-header,
+  .checkout-item {
+    display: grid;
+    grid-template-columns:
+      minmax(52px, 0.75fr)
+      minmax(100px, 1.8fr)
+      minmax(82px, 1.1fr)
+      minmax(78px, 0.9fr)
+      minmax(82px, 1fr)
+      minmax(42px, 0.5fr);
+    gap: 12px;
+    align-items: center;
+  }
 
   .checkout-header {
     width: 100%;
     padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
     border-bottom: 1px solid darkgrey;
+    font-size: 14px;
 
     .header-block {
+      min-width: 0;
       text-transform: capitalize;
-      width: 23%;
+    }
 
-      &:last-child {
-        width: 8%;
-      }
+    .remove-column {
+      text-align: center;
     }
   }
 
   .total {
-    margin-top: 30px;
+    margin-top: 28px;
     margin-left: auto;
-    font-size: 36px;
+    font-size: clamp(24px, 3vw, 36px);
+    text-align: right;
   }
-  button {
+
+  > button {
+    max-width: 100%;
+    margin-top: 28px;
     margin-left: auto;
-    margin-top: 50px;
   }
+
   .test-warning {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 24px;
+    margin-top: 32px;
     color: red;
+    font-size: clamp(14px, 2vw, 22px);
+    text-align: center;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+  .checkout-page {
+    .checkout-header,
+    .checkout-item {
+      grid-template-columns:
+        58px minmax(95px, 1.5fr) minmax(76px, 1fr)
+        minmax(68px, 0.9fr) minmax(72px, 1fr) 32px;
+      gap: 8px;
+    }
+
+    .checkout-header {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-page {
+    margin-top: 20px;
+
+    .checkout-header {
+      display: none;
+    }
+
+    .checkout-item {
+      grid-template-columns: 68px minmax(0, 1fr) minmax(0, 1fr) 28px;
+      grid-template-areas:
+        "image name name remove"
+        "image quantity quantity remove"
+        "image unit total remove";
+      gap: 8px 10px;
+      align-items: center;
+      padding: 14px 0;
+      font-size: 14px;
+
+      .image-container {
+        grid-area: image;
+      }
+
+      .name {
+        grid-area: name;
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      .quantity {
+        grid-area: quantity;
+      }
+
+      .unit-price {
+        grid-area: unit;
+      }
+
+      .line-total {
+        grid-area: total;
+        font-weight: 600;
+      }
+
+      .remove-button {
+        grid-area: remove;
+        justify-self: center;
+        align-self: start;
+      }
+    }
+
+    .total {
+      margin-top: 24px;
+      margin-right: 10px;
+    }
+
+    > button {
+      margin-right: 10px;
+    }
   }
 }

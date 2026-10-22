@@ -10,13 +10,16 @@ const StripeCheckoutButton = ({ price }) => {
     alert('Payment Successful');
   };
 
+  // Use the deployed app's public PNG so Stripe can load the logo directly.
+  const checkoutLogo = `${window.location.origin}/taj-clothing-checkout-logo.png`;
+
   return (
     <StripeCheckout
       label="Pay Now"
       name="Taj Clothing"
       billingAddress
       shippingAddress
-      image="https://sendeyo.com/en/0b01785c59"
+      image={checkoutLogo}
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel="Pay Now"
